@@ -9,6 +9,8 @@
     placeholder="请输入歌名、歌词、歌手或专辑"
     :remote-method="remoteMethod"
     :loading="loading"
+    loading-text
+    @change="handelChange"
   >
     <el-option-group
       v-for="group in store.resultList"
@@ -29,6 +31,7 @@
 import { onMounted, ref } from "vue";
 import { useSerchStore } from "~/store/serch";
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 
 const store = useSerchStore();
 const {} = storeToRefs(store);
@@ -40,16 +43,26 @@ onMounted(() => {
   store.getSearchSuggest();
 });
 
-const remoteMethod = (query) => {
+const remoteMethod = async (query) => {
+  loading.value = true;
   if (query) {
-    console.log(query);
-    loading.value = true;
     store.keywords = query;
-    store.getSearchSuggest();
+    await store.getSearchSuggest();
     loading.value = false;
   } else {
     store.getSearchHotDetail();
+    loading.value = false;
   }
+};
+
+const router = useRouter();
+const handelChange = (val) => {
+  router.push({
+    path: "/playlist",
+    query: {
+      id: val,
+    },
+  });
 };
 </script>
 

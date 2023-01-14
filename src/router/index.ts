@@ -8,7 +8,8 @@ const routes = [
     { path: '/mvlist', name: 'mvlist', component: () => import('../views/mvlist/index.vue') },
     { path: '/artist', name: 'artist', component: () => import('../views/artist/index.vue') },
     { path: '/my', name: 'my', component: () => import('../views/my/index.vue') },
-    { path: '/album', name: 'album', component: () => import('../views/album/index.vue') }
+    { path: '/album', name: 'album', component: () => import('../views/album/index.vue') },
+    { path: '/search', name: 'search', component: () => import('../views/SerchResult/index.vue') }
 ]
 
 const router = createRouter({

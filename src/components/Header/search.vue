@@ -21,7 +21,7 @@
         v-for="item in group.options"
         :key="item.id || item.score"
         :label="item.name || item.searchWord"
-        :value="item.id || item.score"
+        :value="item.name || item.searchWord"
       />
     </el-option-group>
   </el-select>
@@ -34,7 +34,6 @@ import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 
 const store = useSerchStore();
-const {} = storeToRefs(store);
 const value = ref();
 const loading = ref(false);
 
@@ -57,12 +56,17 @@ const remoteMethod = async (query) => {
 
 const router = useRouter();
 const handelChange = (val) => {
-  router.push({
-    path: "/playlist",
-    query: {
-      id: val,
-    },
-  });
+  console.log(val);
+  if (val) {
+    store.keywords = val;
+    store.getCloudsearch();
+    router.push({
+      path: "/search",
+      query: {
+        key: val,
+      },
+    });
+  }
 };
 </script>
 

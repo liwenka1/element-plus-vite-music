@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
-import { useSearchHotDetail, useSearchSuggest } from "~/api/api";
+import {
+  useSearchHotDetail,
+  useSearchSuggest,
+  useCloudsearch,
+} from "~/api/api";
 import type { SearchSuggest } from "~/models/search";
 //1.定义容器
 //2.使用容器的state
@@ -8,10 +12,14 @@ import type { SearchSuggest } from "~/models/search";
 export const useSerchStore = defineStore("serch", {
   state: () => {
     return {
+      currentPage: 1,
+      pageSize: 10,
       keywords: "",
       searchHotDetail: [] as any,
       result: {} as SearchSuggest,
       resultList: [] as any,
+      cloudsearctList: [] as any,
+      cloudsearctResult: {} as any,
     };
   },
 
@@ -46,6 +54,14 @@ export const useSerchStore = defineStore("serch", {
           }
         });
       }
+    },
+    async getCloudsearch() {
+      this.cloudsearctResult = await useCloudsearch(
+        this.keywords,
+        this.currentPage,
+        this.pageSize
+      );
+      this.cloudsearctList = this.cloudsearctResult.songs;
     },
   },
 });

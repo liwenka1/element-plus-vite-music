@@ -420,3 +420,16 @@ export async function usePlaylistDetailDynamic(id: number) {
     code: number;
   }>("/playlist/detail/dynamic", { id: id });
 }
+
+export async function useCloudsearch(
+  keywords: string,
+  page: number,
+  limit: number
+) {
+  const { result } = await http.get<{ result: any }>("cloudsearch", {
+    keywords: keywords,
+    limit: limit,
+    offset: (page - 1) * limit,
+  });
+  return result;
+}

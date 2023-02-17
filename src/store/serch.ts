@@ -15,6 +15,14 @@ export const useSerchStore = defineStore("serch", {
       currentPage: 1,
       pageSize: 10,
       keywords: "",
+      type: 1 as any,
+      mapType: new Map([
+        ["songs", 1],
+        ["albums", 10],
+        ["artists", 100],
+        ["playlists", 1000],
+        ["mvs", 1004],
+      ]),
       searchHotDetail: [] as any,
       result: {} as SearchSuggest,
       resultList: [] as any,
@@ -55,13 +63,18 @@ export const useSerchStore = defineStore("serch", {
         });
       }
     },
-    async getCloudsearch() {
+    async getCloudsearch(name: string) {
       this.cloudsearctResult = await useCloudsearch(
         this.keywords,
         this.currentPage,
-        this.pageSize
+        this.pageSize,
+        this.type
       );
-      this.cloudsearctList = this.cloudsearctResult.songs;
+      this.cloudsearctList = this.cloudsearctResult[name];
+    },
+    getSearchType(name: string) {
+      this.type = this.mapType.get(name);
+      this.getCloudsearch(name);
     },
   },
 });

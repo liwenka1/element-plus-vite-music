@@ -30,7 +30,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useSerchStore } from "~/store/serch";
-import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 
 const store = useSerchStore();
@@ -56,7 +55,6 @@ const remoteMethod = async (query) => {
 
 const router = useRouter();
 const handelChange = (val) => {
-  console.log(val);
   if (val) {
     store.keywords = val;
     store.getCloudsearch();

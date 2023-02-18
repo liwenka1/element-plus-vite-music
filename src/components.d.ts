@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./components/Header/index.vue')['default']
     Indexe: typeof import('./components/Sidebar/indexe.vue')['default']
     Main: typeof import('./components/Main/index.vue')['default']
+    MvList: typeof import('./components/MvList/index.vue')['default']
     Player: typeof import('./components/Player/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

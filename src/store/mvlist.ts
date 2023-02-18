@@ -10,17 +10,23 @@ export const useMvListStore = defineStore("mvList", {
       area: "全部",
       type: "全部",
       order: "上升最快",
-      limit: 18,
-      offset: 0,
       mvAllData: {
         count: 0,
       },
       count: 0,
       currentPage: 1,
+      pageSize: 18,
     };
   },
 
-  getters: {},
+  getters: {
+    limit: (state) => {
+      return state.pageSize;
+    },
+    offset: (state) => {
+      return (state.currentPage - 1) * state.pageSize;
+    },
+  },
 
   actions: {
     async getMvAll() {

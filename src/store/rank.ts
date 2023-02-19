@@ -17,7 +17,7 @@ export const useRankStore = defineStore("rank", {
       rank: {
         id: 19723756,
       },
-      songsList: [] as any[],
+      songs: [] as any[],
       topList: [] as any[],
       mediaList: [] as any[],
       rankList: [] as any[],
@@ -49,7 +49,7 @@ export const useRankStore = defineStore("rank", {
         this.pageSize,
         (this.currentPage - 1) * this.pageSize
       );
-      this.songsList = res;
+      this.songs = res;
     },
     async getPlaylistDetailDynamic() {
       const res = await usePlaylistDetailDynamic(this.rank.id);

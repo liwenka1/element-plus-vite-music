@@ -20,6 +20,7 @@
 import { ref } from "vue";
 import { useRankStore } from "~/store/rank";
 import { storeToRefs } from "pinia";
+import { copyObj } from "~/utils/utils";
 import songsList from "~/components/SongsList/index.vue";
 
 const store = useRankStore();
@@ -40,7 +41,7 @@ const handleCurrentChange = async (val) => {
 //单元格hover事件
 const handleMouseEnter = (row) => {
   //console.log(row, column, cell, event);
-  let Arr = JSON.parse(JSON.stringify(store.songs));
+  let Arr = copyObj(store.songs);
   for (let index = 0; index < Arr.length; index++) {
     const element = Arr[index];
     if (element.id == row.id) {
@@ -49,7 +50,7 @@ const handleMouseEnter = (row) => {
       element["hoverFlag"] = false;
     }
   }
-  store.songs = JSON.parse(JSON.stringify(Arr));
+  store.songs = copyObj(Arr);
 };
 const handleMouseOut = () => {
   for (let index = 0; index < store.songs.length; index++) {

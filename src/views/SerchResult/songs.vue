@@ -20,6 +20,7 @@
 import { ref } from "vue";
 import { useSerchStore } from "~/store/serch";
 import { storeToRefs } from "pinia";
+import { copyObj } from "~/utils/utils";
 import songsList from "~/components/SongsList/index.vue";
 
 const store = useSerchStore();
@@ -41,7 +42,7 @@ const handleCurrentChange = async (val) => {
 //单元格hover事件
 const handleMouseEnter = (row) => {
   //console.log(row, column, cell, event);
-  let Arr = JSON.parse(JSON.stringify(store.cloudsearctList));
+  let Arr = copyObj(store.cloudsearctResult.songs);
   for (let index = 0; index < Arr.length; index++) {
     const element = Arr[index];
     if (element.id == row.id) {
@@ -50,7 +51,7 @@ const handleMouseEnter = (row) => {
       element["hoverFlag"] = false;
     }
   }
-  store.cloudsearctList = JSON.parse(JSON.stringify(Arr));
+  store.cloudsearctResult.songs = copyObj(Arr);
 };
 const handleMouseOut = () => {
   for (let index = 0; index < store.cloudsearctList.length; index++) {

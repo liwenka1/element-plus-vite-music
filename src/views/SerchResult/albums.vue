@@ -6,7 +6,7 @@
     :small="small"
     :disabled="disabled"
     :background="background"
-    :total="cloudsearctResult.mvCount || 100"
+    :total="cloudsearctResult.albumCount || 100"
     :handleSizeChange="handleSizeChange"
     :handleCurrentChange="handleCurrentChange"
   />

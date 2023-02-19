@@ -24,7 +24,7 @@
   <el-pagination
     :currentPage="currentPage"
     :page-size="pageSize"
-    :page-sizes="[18, 30, 60, 90]"
+    :page-sizes="[10, 30, 60, 90]"
     :small="small"
     :disabled="disabled"
     :background="background"

@@ -7,19 +7,19 @@
       @tab-change="handleChange"
     >
       <el-tab-pane label="单曲" name="songs"
-        ><songs class="w-80% m-0" v-if="activeName == 'songs'"
+        ><songs v-if="activeName == 'songs'"
       /></el-tab-pane>
       <el-tab-pane label="专辑" name="albums"
-        ><albums class="w-80% m-0" v-if="activeName == 'albums'"
+        ><albums v-if="activeName == 'albums'"
       /></el-tab-pane>
       <el-tab-pane label="歌手" name="artists"
-        ><artists class="w-80% m-0" v-if="activeName == 'artists'"
+        ><artists v-if="activeName == 'artists'"
       /></el-tab-pane>
       <el-tab-pane label="歌单" name="playlists"
-        ><playlists class="w-80% m-0" v-if="activeName == 'playlists'"
+        ><playlists v-if="activeName == 'playlists'"
       /></el-tab-pane>
       <el-tab-pane label="MV" name="mvs"
-        ><mv class="w-80% m-0" v-if="activeName == 'mvs'"
+        ><mv v-if="activeName == 'mvs'"
       /></el-tab-pane>
     </el-tabs>
   </el-card>

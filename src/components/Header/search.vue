@@ -55,8 +55,8 @@ const remoteMethod = async (query) => {
 
 const router = useRouter();
 const handelChange = (val) => {
-  sessionStorage.setItem("keywords", val);
   if (val) {
+    sessionStorage.setItem("keywords", val);
     store.keywords = val;
     store.getCloudsearch();
     router.push({

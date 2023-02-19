@@ -7,18 +7,20 @@
       @tab-change="handleChange"
     >
       <el-tab-pane label="单曲" name="songs"
-        ><songs class="w-80% m-0"
+        ><songs class="w-80% m-0" v-if="activeName == 'songs'"
       /></el-tab-pane>
       <el-tab-pane label="专辑" name="albums"
-        ><albums class="w-80% m-0"
+        ><albums class="w-80% m-0" v-if="activeName == 'albums'"
       /></el-tab-pane>
       <el-tab-pane label="歌手" name="artists"
-        ><artists class="w-80% m-0"
+        ><artists class="w-80% m-0" v-if="activeName == 'artists'"
       /></el-tab-pane>
       <el-tab-pane label="歌单" name="playlists"
-        ><playlists class="w-80% m-0"
+        ><playlists class="w-80% m-0" v-if="activeName == 'playlists'"
       /></el-tab-pane>
-      <el-tab-pane label="MV" name="mvs"><mv class="w-80% m-0" /></el-tab-pane>
+      <el-tab-pane label="MV" name="mvs"
+        ><mv class="w-80% m-0" v-if="activeName == 'mvs'"
+      /></el-tab-pane>
     </el-tabs>
   </el-card>
 </template>
@@ -36,6 +38,7 @@ import { useSerchStore } from "~/store/serch";
 const activeName = ref("songs");
 const store = useSerchStore();
 const handleChange = (name) => {
+  console.log(name);
   store.getSearchType(name);
 };
 onMounted(() => {

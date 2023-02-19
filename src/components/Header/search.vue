@@ -1,6 +1,6 @@
 <template>
   <el-select
-    v-model="value"
+    v-model="store.keywords"
     class="w-20%"
     filterable
     remote
@@ -33,10 +33,10 @@ import { useSerchStore } from "~/store/serch";
 import { useRouter } from "vue-router";
 
 const store = useSerchStore();
-const value = ref();
 const loading = ref(false);
 
 onMounted(() => {
+  store.keywords = sessionStorage.getItem("keywords");
   store.getSearchHotDetail();
   store.getSearchSuggest();
 });
@@ -55,13 +55,14 @@ const remoteMethod = async (query) => {
 
 const router = useRouter();
 const handelChange = (val) => {
+  sessionStorage.setItem("keywords", val);
   if (val) {
     store.keywords = val;
     store.getCloudsearch();
     router.push({
       path: "/search",
       query: {
-        key: val,
+        key: store.keywords,
       },
     });
   }

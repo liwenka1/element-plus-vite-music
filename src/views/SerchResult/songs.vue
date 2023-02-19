@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <el-table
-      :data="cloudsearctList"
+      :data="store.cloudsearctList"
       @cell-mouse-enter="handleMouseEnter"
       @cell-mouse-leave="handleMouseOut"
       stripe

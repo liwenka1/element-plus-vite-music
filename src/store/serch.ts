@@ -15,6 +15,7 @@ export const useSerchStore = defineStore("serch", {
       currentPage: 1,
       pageSize: 10,
       keywords: "",
+      name: "songs",
       type: 1 as any,
       mapType: new Map([
         ["songs", 1],
@@ -26,12 +27,15 @@ export const useSerchStore = defineStore("serch", {
       searchHotDetail: [] as any,
       result: {} as SearchSuggest,
       resultList: [] as any,
-      cloudsearctList: [] as any,
       cloudsearctResult: {} as any,
     };
   },
 
-  getters: {},
+  getters: {
+    cloudsearctList: (state) => {
+      return state.cloudsearctResult[state.name];
+    },
+  },
 
   actions: {
     async getSearchHotDetail() {
@@ -63,18 +67,18 @@ export const useSerchStore = defineStore("serch", {
         });
       }
     },
-    async getCloudsearch(name: string) {
+    async getCloudsearch() {
       this.cloudsearctResult = await useCloudsearch(
         this.keywords,
         this.currentPage,
         this.pageSize,
         this.type
       );
-      this.cloudsearctList = this.cloudsearctResult[name];
     },
     getSearchType(name: string) {
       this.type = this.mapType.get(name);
-      this.getCloudsearch(name);
+      this.name = name;
+      this.getCloudsearch();
     },
   },
 });

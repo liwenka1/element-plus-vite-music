@@ -5,19 +5,66 @@ import { useSongUrl } from "~/api/api";
 //2.使用容器的state
 //3.修改state
 //4.使用容器的actions
+
+// APlayer歌曲信息
+class Audio {
+  // 音频艺术家
+  artist: String;
+  // 音频名称
+  name: String;
+  // 音频链接
+  url: String;
+  // 音频封面
+  cover: String;
+  // 歌词
+  lrc: String;
+
+  constructor(
+    artist: String,
+    name: String,
+    url: String,
+    cover: String,
+    lrc: String
+  ) {
+    this.artist = artist;
+    this.name = name;
+    this.url = url;
+    this.cover = cover;
+    this.lrc = lrc;
+  }
+}
+
 export const usePlayerStore = defineStore("player", {
   state: () => {
     return {
       id: 447281461,
       songUrl: "",
       arr: [
-        "http://m8.music.126.net/20230218161234/9eee661054c2063099a9eba9e8f79b57/ymusic/7028/f41d/6d13/39818fbb2c4c0139bc1b0d92eb99f079.mp3",
-        "http://m701.music.126.net/20230218161739/f68f51b9a0b74acd11bcf55ada40b45b/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/24947970981/a9c0/ae55/3b63/10987da45939de0ac0f275b7a61c1416.mp3",
+        {
+          author: "123",
+          title: "123",
+          url: "http://m801.music.126.net/20230219234617/c3d87034b7e2535547ff85b3afdd7371/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/22046760991/6d9b/eb87/f3de/a3cb8fd53c760fb3193b953df03b7531.mp3",
+          pic: "123",
+          lrc: "123",
+        },
+        {
+          author: "456",
+          title: "123",
+          url: "http://m701.music.126.net/20230219235502/a4d89d63bec2d89a668bdb1160766712/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/24922721521/6198/d48d/5ca1/39aeaee4a8c830b779df09f2b1f9ecb7.mp3",
+          pic: "123",
+          lrc: "123",
+        },
       ],
     };
   },
 
-  getters: {},
+  getters: {
+    audioList: (state) =>
+      state.arr.map(
+        (value) =>
+          new Audio(value.author, value.title, value.url, value.pic, value.lrc)
+      ),
+  },
 
   actions: {
     async getSongUrl() {

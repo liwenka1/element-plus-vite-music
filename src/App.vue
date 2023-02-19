@@ -7,8 +7,8 @@
       <Header />
       <Main />
     </el-main>
-    <Player />
   </el-container>
+  <Player />
 </template>
 
 <script setup>

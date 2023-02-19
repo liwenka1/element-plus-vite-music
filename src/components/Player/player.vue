@@ -130,7 +130,16 @@ onMounted(() => {
 });
 
 watch(audioList, () => {
-  
+  instance.list.add([
+    {
+      name: "name",
+      artist: "artist",
+      url: "url.mp3",
+      cover: "cover.jpg",
+      lrc: "lrc.lrc",
+      theme: "#ebd0c2",
+    },
+  ]);
 });
 // 销毁
 onBeforeUnmount(() => {

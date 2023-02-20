@@ -1,20 +1,36 @@
 <template>
-  <el-card class="">
-    <ul v-for="(item, i) in topCat" :key="i" class="flex">
-      <span class="text-xl font-semibold">{{ item }}</span>
-      <li v-for="cat in playListCat[i]">
+  <el-card>
+    <span class="text-3xl font-semibold">{{ cat }}</span>
+    <el-popover placement="bottom-start" :width="1400" trigger="click">
+      <template #reference>
+        <el-button class="ml-5 mb-3"
+          >选择分类 <i class="iconfont icon-arrow ml-2"></i
+        ></el-button>
+      </template>
+      <div class="flex flex-col">
         <el-button
+          class="my-2 text-xl font-semibold w-20"
           link
-          :class="{
-            'active-rank': cat.name === store.cat,
-          }"
-          class="ml-5"
-          @click="catClick(cat.name)"
+          @click="catClick('全部')"
+          >全部风格</el-button
         >
-          {{ cat.name }}
-        </el-button>
-      </li>
-    </ul>
+        <ul v-for="(item, i) in topCat" :key="i" class="flex my-2">
+          <span class="text-xl font-semibold">{{ item }}</span>
+          <li v-for="cat in playListCat[i]">
+            <el-button
+              link
+              :class="{
+                'active-rank': cat.name === store.cat,
+              }"
+              class="ml-5"
+              @click="catClick(cat.name)"
+            >
+              {{ cat.name }}
+            </el-button>
+          </li>
+        </ul>
+      </div>
+    </el-popover>
   </el-card>
 </template>
 
@@ -25,7 +41,7 @@ import { usePlayListStore } from "~/store/playList";
 import { storeToRefs } from "pinia";
 
 const store = usePlayListStore();
-const { playList } = storeToRefs(store);
+const { playList, cat } = storeToRefs(store);
 let topCat = ref({});
 let playListCat = ref([]);
 onMounted(async () => {

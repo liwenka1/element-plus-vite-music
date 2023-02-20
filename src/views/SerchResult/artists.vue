@@ -1,25 +1,37 @@
 <template>
-    <el-card
-      v-for="(item, i) in store.cloudsearctList"
-      :class="{ 'active-rank': item.id === store.id }"
-      class="mb-4 rounded-lg cursor-pointer text-center"
-      @click="checkoutRank(item.id, i)"
-    >
-      <el-image
-        :src="item.picUrl"
-        style="width: 45px; height: 45px"
-        class="float-left mr-4 rounded-lg -translate-y-3"
-      ></el-image
-      >{{ item.name }}</el-card
-    >
-  </template>
-  
-  <script setup>
-  import { ref } from "vue";
-  import { useSerchStore } from "~/store/serch";
-  
-  const store = useSerchStore();
-  </script>
-  
-  <style lang="less" scoped></style>
-  
+  <artistsList
+    :data="cloudsearctList"
+    :currentPage="currentPage"
+    :pageSize="pageSize"
+    :small="small"
+    :disabled="disabled"
+    :background="background"
+    :total="cloudsearctResult.artistCount || 100"
+    :handleSizeChange="handleSizeChange"
+    :handleCurrentChange="handleCurrentChange"
+  />
+</template>
+
+<script setup>
+import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useSerchStore } from "~/store/serch";
+import artistsList from "~/components/ArtistsList/index.vue";
+
+const store = useSerchStore();
+const { currentPage, pageSize, cloudsearctResult, cloudsearctList } =
+  storeToRefs(store);
+const small = ref(false);
+const background = ref(false);
+const disabled = ref(false);
+const handleSizeChange = (val) => {
+  store.pageSize = val;
+  store.getCloudsearch();
+};
+const handleCurrentChange = (val) => {
+  store.currentPage = val;
+  store.getCloudsearch();
+};
+</script>
+
+<style lang="less" scoped></style>

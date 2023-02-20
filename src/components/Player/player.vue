@@ -12,7 +12,7 @@ import { storeToRefs } from "pinia";
 import { usePlayerStore } from "~/store/player";
 
 const store = usePlayerStore();
-const { audioList } = storeToRefs(store);
+const { audio } = storeToRefs(store);
 
 const playerRef = ref();
 let instance = APlayer;
@@ -31,7 +31,7 @@ const props = defineProps({
   // 音频自动播放
   autoplay: {
     type: Boolean as PropType<boolean>,
-    default: false,
+    default: true,
   },
   // 主题色
   theme: {
@@ -86,7 +86,7 @@ const props = defineProps({
   // 传递歌词方式
   lrcType: {
     type: Number as PropType<number>,
-    default: 3,
+    default: 1,
   },
   // 列表是否默认折叠
   listFolded: {
@@ -125,21 +125,11 @@ onMounted(() => {
       storageName: props.storageName,
       audio: store.audioList,
     });
-    console.log(instance.options);
   });
 });
 
-watch(audioList, () => {
-  instance.list.add([
-    {
-      name: "name",
-      artist: "artist",
-      url: "url.mp3",
-      cover: "cover.jpg",
-      lrc: "lrc.lrc",
-      theme: "#ebd0c2",
-    },
-  ]);
+watch(audio, () => {
+  instance.list.add([audio.value]);
 });
 // 销毁
 onBeforeUnmount(() => {

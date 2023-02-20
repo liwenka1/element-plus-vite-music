@@ -435,3 +435,10 @@ export async function useCloudsearch(
   });
   return result;
 }
+
+export async function uselyric(id: number) {
+  return await http.get<{
+    code: number;
+    lrc: { lyric: string };
+  }>("lyric", { id: id });
+}

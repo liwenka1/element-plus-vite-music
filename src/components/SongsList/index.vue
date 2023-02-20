@@ -12,7 +12,7 @@
           v-if="scope.row.hoverFlag"
           class="iconfont icon-play"
           title="播放"
-          @click="playMusic(scope.row.id, scope.row)"
+          @click="playMusic(scope.row)"
         ></i>
         <div v-if="!scope.row.hoverFlag">
           <span>{{ scope.$index + 1 }}</span>
@@ -75,17 +75,9 @@ const props = defineProps({
 
 //播放音乐
 const playerStore = usePlayerStore();
-const playMusic = (id, row) => {
+const playMusic = (row) => {
   console.log(row);
-  playerStore.arr.push({
-    author: row.ar[0].name,
-    title: row.name,
-    url: "123",
-    pic: row.al.picUrl,
-    lrc: "123",
-  });
-  playerStore.id = id;
-  playerStore.getSongUrl();
+  playerStore.usePlayer(row);
 };
 </script>
 

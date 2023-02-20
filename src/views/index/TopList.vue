@@ -5,26 +5,23 @@
         :src="item.coverImgUrl"
         style="width: 100px; height: 100px"
       ></el-image>
+      <el-table :data="item.tracks.slice(0, 10)" stripe>
+        <el-table-column type="index" label="序号" width="80" />
+        <el-table-column prop="name" label="歌曲"
+      /></el-table>
     </el-card>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { usePlayListDetail } from "~/api/api";
+import { onMounted } from "vue";
+import { storeToRefs } from "pinia";
+import { useIndexStore } from "~/store/index";
 
-const topList = ref([
-  { id: 19723756, name: "飙升榜" },
-  { id: 3779629, name: "新歌榜" },
-  { id: 2884035, name: "原创榜" },
-  { id: 3778678, name: "热歌榜" },
-]);
-const playList = ref([]);
+const store = useIndexStore();
+const { playList } = storeToRefs(store);
 onMounted(async () => {
-  topList.value.forEach(async (item) => {
-    const res = await usePlayListDetail(item.id);
-    playList.value.push(res);
-  });
+  store.getPlayListDetail();
 });
 </script>
 

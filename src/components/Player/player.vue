@@ -62,22 +62,22 @@ const props = defineProps({
     },
   },
   // 歌曲服务器(netease-网易云, tencent-qq音乐, kugou-酷狗, xiami-小米音乐, baidu-百度音乐)
-  songServer: {
-    type: String as PropType<
-      "netease" | "tencent" | "kugou" | "xiami" | "baidu"
-    >,
-    default: "netease",
-  },
+  // songServer: {
+  //   type: String as PropType<
+  //     "netease" | "tencent" | "kugou" | "xiami" | "baidu"
+  //   >,
+  //   default: "netease",
+  // },
   // 播放类型(song-歌曲, playlist-播放列表, album-专辑, search-搜索, artist-艺术家)
-  songType: {
-    type: String as PropType<string>,
-    default: "playlist",
-  },
+  // songType: {
+  //   type: String as PropType<string>,
+  //   default: "playlist",
+  // },
   // 歌的id
-  songId: {
-    type: String as PropType<string>,
-    default: "19723756",
-  },
+  // songId: {
+  //   type: String as PropType<string>,
+  //   default: "19723756",
+  // },
   // 互斥，阻止多个播放器同时播放，当前播放器播放时暂停其他播放器
   mutex: {
     type: Boolean as PropType<boolean>,

@@ -22,6 +22,7 @@
     </div>
   </div>
   <el-pagination
+    v-if="paginationIf"
     :currentPage="currentPage"
     :page-size="pageSize"
     :page-sizes="[18, 30, 60, 90]"
@@ -39,6 +40,7 @@
 import { defineProps } from "vue";
 
 const props = defineProps({
+  paginationIf: Boolean,
   data: Object,
   currentPage: Number,
   pageSize: Number,

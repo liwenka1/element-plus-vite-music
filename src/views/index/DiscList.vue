@@ -18,15 +18,7 @@
       </el-button>
     </el-row>
     <el-row>
-      <div class="my-5" v-for="(item, i) in topAlbumList" :key="i">
-        <el-image
-          :src="item.blurPicUrl"
-          style="width: 220px; height: 220px"
-          class="mr-8 rounded-md"
-        >
-        </el-image>
-        <span class="block break-normal">{{ item.name }}</span>
-      </div>
+      <albumList :paginationIf="false" :data="topAlbumList" />
     </el-row>
   </el-card>
 </template>
@@ -34,6 +26,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useAlbumNew } from "~/api/api";
+import albumList from "~/components/AlbumList/index.vue";
 
 const hotList = ref([
   { id: 0, name: "全部", type: "ALL" },

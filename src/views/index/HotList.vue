@@ -18,15 +18,7 @@
       </el-button>
     </el-row>
     <el-row>
-      <div class="my-5" v-for="(item, i) in personalizedList" :key="i">
-        <el-image
-          :src="item.coverImgUrl"
-          style="width: 220px; height: 220px"
-          class="mr-8 rounded-md"
-        >
-        </el-image>
-        <span class="block break-normal">{{ item.name }}</span>
-      </div>
+      <playlistsList :paginationIf="false" :data="personalizedList" />
     </el-row>
   </el-card>
 </template>
@@ -34,6 +26,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useTopPlaylistHighquality } from "~/api/api";
+import playlistsList from "~/components/PlaylistsList/index.vue";
 
 const hotList = ref([
   { id: 1, name: "华语" },

@@ -1,5 +1,6 @@
 <template>
   <albumList
+    :paginationIf="true"
     :data="cloudsearctList"
     :currentPage="currentPage"
     :pageSize="pageSize"

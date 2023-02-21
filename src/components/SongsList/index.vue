@@ -55,7 +55,6 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
 import { useFormatDuring } from "~/utils/number";
 import { usePlayerStore } from "~/store/player";
 

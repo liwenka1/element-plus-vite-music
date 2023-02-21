@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <songsList
+    <SongsList
       :data="songs"
       :currentPage="currentPage"
       :pageSize="pageSize"
@@ -21,7 +21,6 @@ import { ref } from "vue";
 import { useRankStore } from "~/store/rank";
 import { storeToRefs } from "pinia";
 import { copyObj } from "~/utils/utils";
-import songsList from "~/components/SongsList/index.vue";
 
 const store = useRankStore();
 const { currentPage, pageSize, rank, songs } = storeToRefs(store);

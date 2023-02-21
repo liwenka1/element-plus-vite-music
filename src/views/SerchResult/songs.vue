@@ -1,18 +1,20 @@
 <template>
   <el-card>
-    <songsList
+    <SongsList
+      v-if="cloudsearctList"
       :data="cloudsearctList"
       :currentPage="currentPage"
       :pageSize="pageSize"
       :small="small"
       :disabled="disabled"
       :background="background"
-      :total="cloudsearctResult.songCount || 100"
+      :total="cloudsearctResult.songCount || 0"
       :handleSizeChange="handleSizeChange"
       :handleCurrentChange="handleCurrentChange"
       :handleMouseEnter="handleMouseEnter"
       :handleMouseOut="handleMouseOut"
     />
+    <NoList v-if="!cloudsearctList" />
   </el-card>
 </template>
 
@@ -21,7 +23,6 @@ import { ref } from "vue";
 import { useSerchStore } from "~/store/serch";
 import { storeToRefs } from "pinia";
 import { copyObj } from "~/utils/utils";
-import songsList from "~/components/SongsList/index.vue";
 
 const store = useSerchStore();
 const { currentPage, pageSize, cloudsearctList, cloudsearctResult } =

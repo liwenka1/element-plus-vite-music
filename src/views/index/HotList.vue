@@ -18,7 +18,7 @@
       </el-button>
     </el-row>
     <el-row>
-      <playlistsList :paginationIf="false" :data="personalizedList" />
+      <PlaylistsList :paginationIf="false" :data="personalizedList" />
     </el-row>
   </el-card>
 </template>
@@ -26,7 +26,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useTopPlaylistHighquality } from "~/api/api";
-import playlistsList from "~/components/PlaylistsList/index.vue";
 
 const hotList = ref([
   { id: 1, name: "华语" },

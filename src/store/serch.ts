@@ -36,7 +36,7 @@ export const useSerchStore = defineStore("serch", {
     async getSearchSuggest() {
       this.result = await useSearchSuggest(this.keywords);
       this.resultList = [];
-      if (this.result !== undefined) {
+      if (this.result !== undefined && this.result.order !== undefined) {
         this.result.order.forEach((item) => {
           for (const key in this.result) {
             if (key === item) {

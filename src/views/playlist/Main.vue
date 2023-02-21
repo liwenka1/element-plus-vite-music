@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <playlistsList
+    <PlaylistsList
     :data="playList.playlists"
     :currentPage="currentPage"
     :pageSize="pageSize"
@@ -18,7 +18,6 @@
 import { ref } from "vue";
 import { usePlayListStore } from "~/store/playList";
 import { storeToRefs } from "pinia";
-import playlistsList from "~/components/PlaylistsList/index.vue";
 
 const store = usePlayListStore();
 const { currentPage, pageSize, playList } = storeToRefs(store);

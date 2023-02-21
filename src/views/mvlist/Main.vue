@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <mvlist
+    <MvList
       :data="mvAllData.data"
       :currentPage="currentPage"
       :pageSize="pageSize"
@@ -18,7 +18,6 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useMvListStore } from "~/store/mvlist";
-import mvlist from "~/components/MvList/index.vue";
 
 const store = useMvListStore();
 const { currentPage, pageSize, count, mvAllData } = storeToRefs(store);

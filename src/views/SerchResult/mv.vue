@@ -1,16 +1,18 @@
 <template>
   <el-card>
-    <mvlist
+    <MvList
+      v-if="cloudsearctList"
       :data="cloudsearctList"
       :currentPage="currentPage"
       :pageSize="pageSize"
       :small="small"
       :disabled="disabled"
       :background="background"
-      :total="cloudsearctResult.mvCount || 100"
+      :total="cloudsearctResult.mvCount || 0"
       :handleSizeChange="handleSizeChange"
       :handleCurrentChange="handleCurrentChange"
     />
+    <NoList v-if="!cloudsearctList" />
   </el-card>
 </template>
 
@@ -18,7 +20,6 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useSerchStore } from "~/store/serch";
-import mvlist from "~/components/MvList/index.vue";
 
 const store = useSerchStore();
 const { currentPage, pageSize, cloudsearctResult, cloudsearctList } =

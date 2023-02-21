@@ -1,22 +1,25 @@
 <template>
-  <artistsList
-    :data="cloudsearctList"
-    :currentPage="currentPage"
-    :pageSize="pageSize"
-    :small="small"
-    :disabled="disabled"
-    :background="background"
-    :total="cloudsearctResult.artistCount || 100"
-    :handleSizeChange="handleSizeChange"
-    :handleCurrentChange="handleCurrentChange"
-  />
+  <el-card>
+    <ArtistsList
+      v-if="cloudsearctList"
+      :data="cloudsearctList"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :small="small"
+      :disabled="disabled"
+      :background="background"
+      :total="cloudsearctResult.artistCount || 0"
+      :handleSizeChange="handleSizeChange"
+      :handleCurrentChange="handleCurrentChange"
+    />
+    <NoList v-if="!cloudsearctList" />
+  </el-card>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useSerchStore } from "~/store/serch";
-import artistsList from "~/components/ArtistsList/index.vue";
 
 const store = useSerchStore();
 const { currentPage, pageSize, cloudsearctResult, cloudsearctList } =

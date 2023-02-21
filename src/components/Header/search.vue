@@ -19,9 +19,9 @@
     >
       <el-option
         v-for="item in group.options"
-        :key="item.id || item.score"
-        :label="item.name || item.searchWord"
-        :value="item.name || item.searchWord"
+        :key="item.id"
+        :label="item.name"
+        :value="item.name"
       />
     </el-option-group>
   </el-select>
@@ -36,20 +36,14 @@ const store = useSerchStore();
 const loading = ref(false);
 
 onMounted(() => {
-  store.keywords = sessionStorage.getItem("keywords");
-  console.log(router.currentRoute.value.query);
-  store.getSearchHotDetail();
   store.getSearchSuggest();
 });
 
 const remoteMethod = async (query) => {
   loading.value = true;
-  if (query) {
-    store.keywords = query;
+  if (query || store.keywords) {
+    store.keywords = query || store.keywords;
     await store.getSearchSuggest();
-    loading.value = false;
-  } else {
-    store.getSearchHotDetail();
     loading.value = false;
   }
 };
@@ -57,13 +51,12 @@ const remoteMethod = async (query) => {
 const router = useRouter();
 const handelChange = (val) => {
   if (val) {
-    sessionStorage.setItem("keywords", val);
-    store.keywords = val;
     store.getCloudsearch();
     router.push({
       path: "/search",
       query: {
-        key: store.keywords,
+        keywords: store.keywords,
+        type: store.type,
       },
     });
   }

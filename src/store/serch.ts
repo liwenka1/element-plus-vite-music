@@ -1,9 +1,5 @@
 import { defineStore } from "pinia";
-import {
-  useSearchHotDetail,
-  useSearchSuggest,
-  useCloudsearch,
-} from "~/api/api";
+import { useSearchSuggest, useCloudsearch } from "~/api/api";
 import type { SearchSuggest } from "~/models/search";
 //1.定义容器
 //2.使用容器的state
@@ -15,7 +11,7 @@ export const useSerchStore = defineStore("serch", {
       currentPage: 1,
       pageSize: 10,
       keywords: "",
-      name: "songs",
+      activeName: "songs",
       type: 1 as any,
       mapType: new Map([
         ["songs", 1],
@@ -24,7 +20,6 @@ export const useSerchStore = defineStore("serch", {
         ["playlists", 1000],
         ["mvs", 1004],
       ]),
-      searchHotDetail: [] as any,
       result: {} as SearchSuggest,
       resultList: [] as any,
       cloudsearctResult: {} as any,
@@ -33,19 +28,11 @@ export const useSerchStore = defineStore("serch", {
 
   getters: {
     cloudsearctList: (state) => {
-      return state.cloudsearctResult[state.name];
+      return state.cloudsearctResult[state.activeName];
     },
   },
 
   actions: {
-    async getSearchHotDetail() {
-      this.searchHotDetail = await useSearchHotDetail();
-      this.resultList = [];
-      this.resultList.push({
-        label: "hot",
-        options: [...this.searchHotDetail],
-      });
-    },
     async getSearchSuggest() {
       this.result = await useSearchSuggest(this.keywords);
       this.resultList = [];
@@ -56,6 +43,11 @@ export const useSerchStore = defineStore("serch", {
               if (key === "albums") {
                 this.result[key].forEach((ele) => {
                   ele.name = ele.name + " - " + ele.artist.name;
+                });
+              }
+              if (key === "songs") {
+                this.result[key].forEach((ele) => {
+                  ele.name = ele.name + " - " + ele.artists[0].name;
                 });
               }
               this.resultList.push({
@@ -74,11 +66,6 @@ export const useSerchStore = defineStore("serch", {
         this.pageSize,
         this.type
       );
-    },
-    getSearchType(name: string) {
-      this.type = this.mapType.get(name);
-      this.name = name;
-      this.getCloudsearch();
     },
   },
 });

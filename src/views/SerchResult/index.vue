@@ -26,7 +26,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 import songs from "./songs.vue";
 import albums from "./albums.vue";
 import artists from "./artists.vue";
@@ -34,15 +35,28 @@ import playlists from "./playlists.vue";
 import mv from "./mv.vue";
 
 import { useSerchStore } from "~/store/serch";
+import { storeToRefs } from "pinia";
 
-const activeName = ref("songs");
 const store = useSerchStore();
+const { activeName } = storeToRefs(store);
 const handleChange = (name) => {
-  console.log(name);
-  store.getSearchType(name);
+  store.activeName = name;
+  store.type = store.mapType.get(name);
+  router.push({
+    path: "/search",
+    query: {
+      keywords: store.keywords,
+      type: store.type,
+    },
+  });
+  store.getCloudsearch();
 };
+const router = useRouter();
 onMounted(() => {
-  store.getSearchType(activeName.value);
+  let query = router.currentRoute.value.query;
+  store.keywords = query.keywords;
+  store.type = query.type;
+  store.getCloudsearch();
 });
 </script>
 

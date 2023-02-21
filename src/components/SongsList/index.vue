@@ -75,7 +75,6 @@ const props = defineProps({
 //播放音乐
 const playerStore = usePlayerStore();
 const playMusic = (row) => {
-  console.log(row);
   playerStore.usePlayer(row);
 };
 </script>

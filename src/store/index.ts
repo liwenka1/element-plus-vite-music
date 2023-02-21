@@ -20,11 +20,13 @@ export const useIndexStore = defineStore("index", {
   getters: {},
 
   actions: {
-    getPlayListDetail() {
-      this.topList.forEach(async (item) => {
-        const res = await usePlayListDetail(item.id);
-        this.playList.push(res);
-      });
+    async getPlayListDetail() {
+      if (this.playList.length == 0) {
+        for (let i = 0; i < this.topList.length; i++) {
+          const res = await usePlayListDetail(this.topList[i].id);
+          this.playList.push(res);
+        }
+      }
     },
   },
 });

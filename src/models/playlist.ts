@@ -195,6 +195,8 @@ export interface PlayListDetailTracks {
     rurl?: any;
     mst: number;
     publishTime: number;
+    resourceState: boolean;
+    version: number;
 }
 
 export interface PlayListDetailTrackIds {

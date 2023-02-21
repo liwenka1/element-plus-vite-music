@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import type { PlayListDetail } from "~/models/playlist";
 import {
   useTopListDetail,
   usePlayListTrackAll,
@@ -14,13 +15,11 @@ export const useRankStore = defineStore("rank", {
     return {
       currentPage: 1,
       pageSize: 10,
-      rank: {
-        id: 19723756,
-      },
       songs: [] as any[],
       topList: [] as any[],
       mediaList: [] as any[],
       rankList: [] as any[],
+      rank: {} as PlayListDetail,
       rankCount: {},
       creator: {},
     };
@@ -39,7 +38,6 @@ export const useRankStore = defineStore("rank", {
             this.mediaList.push(item);
           }
         });
-        this.rank = this.topList[0];
         this.rankList = this.topList;
       }
     },
@@ -57,6 +55,7 @@ export const useRankStore = defineStore("rank", {
     },
     async getPlayListDetail() {
       const res = await usePlayListDetail(this.rank.id);
+      this.rank = res;
       this.creator = res.creator;
     },
   },

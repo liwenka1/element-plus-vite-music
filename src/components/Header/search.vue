@@ -37,6 +37,7 @@ const loading = ref(false);
 
 onMounted(() => {
   store.keywords = sessionStorage.getItem("keywords");
+  console.log(router.currentRoute.value.query);
   store.getSearchHotDetail();
   store.getSearchSuggest();
 });

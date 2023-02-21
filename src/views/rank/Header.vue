@@ -25,14 +25,18 @@
     </div>
     <div class="transform translate-y-8">
       <span class="text-black text-opacity-50"
+        ><i class="iconfont icon-play" @click="playMusicAll(rank.tracks)"></i>
+        播放全部</span
+      >
+      <span class="text-black text-opacity-50 translate-x-3 inline-block"
         ><i class="iconfont icon-playnum"></i>
         {{ useNumberFormat(rankCount.playCount) }}</span
       >
-      <span class="text-black text-opacity-50 translate-x-3 inline-block"
+      <span class="text-black text-opacity-50 translate-x-6 inline-block"
         ><i class="iconfont icon-collect"></i>
         {{ useNumberFormat(rankCount.bookedCount) }}</span
       >
-      <span class="text-black text-opacity-50 translate-x-6 inline-block"
+      <span class="text-black text-opacity-50 translate-x-9 inline-block"
         ><i class="iconfont icon-comment"></i>
         {{ useNumberFormat(rankCount.commentCount) }}</span
       >
@@ -49,9 +53,26 @@ import {} from "vue";
 import { useRankStore } from "~/store/rank";
 import { storeToRefs } from "pinia";
 import { useNumberFormat, useFilterTime } from "~/utils/number";
+import { usePlayerStore } from "~/store/player";
 
 const store = useRankStore();
 const { rank, rankCount, creator } = storeToRefs(store);
+
+//播放歌单
+const playerStore = usePlayerStore();
+const playMusicAll = (row) => {
+  playerStore.usePlayerAll(row);
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped>
+.iconfont {
+  font-size: 20px;
+  cursor: pointer;
+  vertical-align: middle;
+
+  &:hover {
+    color: var(--color-text-height);
+  }
+}
+</style>

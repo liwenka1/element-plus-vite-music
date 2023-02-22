@@ -1,26 +1,43 @@
 <template>
-  <div
-    class="inline-block mt-5 mr-8 h-280px"
-    v-for="(item, i) in data"
-    :key="i"
-  >
-    <el-image
-      :src="item.picUrl"
-      style="width: 220px; height: 220px"
-      class="rounded-md"
-    ></el-image>
-    <span
-      class="block truncate cursor-pointer w-220px text-lg hover:underline"
-      :title="item.name"
-      >{{ item.name }}</span
-    >
-    <div class="mt-1">
-      <span class="text-black text-opacity-50">by</span>
-      <span class="translate-x-2 inline-block cursor-pointer hover:underline">
-        {{ item.artist.name }}
-      </span>
-    </div>
-  </div>
+  <el-skeleton :loading="false" animated>
+    <template #template>
+      <el-skeleton-item class="skeleton-img" variant="image" />
+      <el-skeleton-item class="skeleton-img" variant="image" />
+      <el-skeleton-item class="skeleton-img" variant="image" />
+      <el-skeleton-item class="skeleton-img" variant="image" />
+    </template>
+    <template #default>
+      <swiper
+        :slidesPerView="5"
+        :spaceBetween="30"
+        :loop="true"
+        :centeredSlides="true"
+        :pagination="{
+          dynamicBullets: true,
+        }"
+        :autoplay="{
+          delay: 2500,
+          disableOnInteraction: false,
+        }"
+        :modules="modules"
+        class="banner_wrap"
+      >
+        <swiper-slide v-for="item of data" :key="item.pic">
+          <el-image
+            :src="item.picUrl"
+            :alt="item.name"
+            class="-translate-x-220% rounded-md mb-10"
+          >
+            <template #placeholder>
+              <div class="image-slot">
+                <i class="iconfont icon-placeholder"></i>
+              </div>
+            </template>
+          </el-image>
+        </swiper-slide>
+      </swiper>
+    </template>
+  </el-skeleton>
   <el-pagination
     v-if="paginationIf"
     :currentPage="currentPage"
@@ -37,6 +54,15 @@
 </template>
 
 <script setup>
+import { Swiper, SwiperSlide } from "swiper/vue"; // swiper所需组件
+// 这是分页器和对应方法，swiper好像在6的时候就已经分离了分页器和一些其他工具
+import { Autoplay, Navigation, Pagination, A11y } from "swiper";
+// 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+// setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
+const modules = [Autoplay, Pagination, Navigation, A11y];
 
 const props = defineProps({
   paginationIf: Boolean,

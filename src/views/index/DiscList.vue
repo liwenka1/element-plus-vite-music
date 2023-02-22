@@ -23,6 +23,7 @@ let topAlbumList = ref([]);
 onMounted(async () => {
   const res = await useAlbumNewest();
   topAlbumList.value = res.albums;
+  console.log(topAlbumList.value);
 });
 const router = useRouter();
 const goAlbum = () => {

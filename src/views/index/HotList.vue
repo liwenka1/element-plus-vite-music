@@ -3,7 +3,7 @@
     <el-row>
       <h3
         class="text-4xl font-semibold w-40 inline-block cursor-pointer"
-        @click="buttonClick('全部')"
+        @click="goRank"
       >
         热门推荐
       </h3>
@@ -25,6 +25,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { useTopPlaylistHighquality } from "~/api/api";
 
 const hotList = ref([
@@ -43,6 +44,13 @@ onMounted(async () => {
 const buttonClick = async (cat) => {
   const res = await useTopPlaylistHighquality({ limit: 6, cat: cat });
   personalizedList.value = res.playlists;
+};
+
+const router = useRouter();
+const goRank = () => {
+  router.push({
+    path: "playlist",
+  });
 };
 </script>
 

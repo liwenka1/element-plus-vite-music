@@ -59,7 +59,7 @@
 .icon-fav:before {
     content: "\e60a";
 }
-.icon-dj:before {
+.icon-album:before {
     content: "\e7e5";
 }
 .icon-placeholder:before {

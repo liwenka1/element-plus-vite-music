@@ -43,6 +43,10 @@ const menuList = reactive([
         path: 'artist'
     },
     {
+        name: '新碟上架',
+        path: 'album'
+    },
+    {
         name: '我的音乐',
         path: 'my'
     }

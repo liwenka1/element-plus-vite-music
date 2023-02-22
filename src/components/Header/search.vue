@@ -12,6 +12,9 @@
     loading-text
     @change="handelChange"
   >
+    <template #prefix>
+      <i class="iconfont icon-search"></i>
+    </template>
     <el-option-group
       v-for="group in store.resultList"
       :key="group.label"

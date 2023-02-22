@@ -384,6 +384,14 @@ export async function useAlbumNew(params?: {
   }>("album/new", params);
 }
 
+export async function useAlbumNewest() {
+  return await http.get<{
+    albums: Album[];
+    code: number;
+    total: number;
+  }>("/album/newest");
+}
+
 export async function useUserSubcount() {
   return await http.get<{
     code: number;

@@ -41,7 +41,7 @@ import { usePlayListStore } from "~/store/playList";
 import { storeToRefs } from "pinia";
 
 const store = usePlayListStore();
-const { playList, cat } = storeToRefs(store);
+const { cat } = storeToRefs(store);
 let topCat = ref({});
 let playListCat = ref([]);
 onMounted(async () => {
@@ -57,7 +57,7 @@ onMounted(async () => {
     playListCat.value.push(arr);
     arr = [];
   }
-  const playList = await useTopPlaylist({ limit: 18 });
+  const playList = await useTopPlaylist({ limit: 18, offset: 0, cat: "全部" });
   store.playList = playList;
 });
 const catClick = async (cat) => {

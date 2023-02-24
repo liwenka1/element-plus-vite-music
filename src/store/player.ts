@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { uselyric } from "~/api/api";
 import type { Song } from "~/models/song";
-import type {PlayListDetailTracks} from "~/models/playlist";
+import type { PlayListDetailTracks } from "~/models/playlist";
 
 //1.定义容器
 //2.使用容器的state
@@ -41,10 +41,21 @@ export const usePlayerStore = defineStore("player", {
         lrc: lrc,
       };
     },
+    getArName(ar: any[]) {
+      let res = "";
+      for (let i = 0; i < ar.length; i++) {
+        res += ar[i].name;
+        if (i !== ar.length - 1) {
+          res += "/";
+        }
+      }
+      return res;
+    },
     async usePlayer(row: Song) {
       let url = await this.getSongUrl(row.id);
       let lrc = await this.getlyric(row.id);
-      this.getAudio(row.ar[0].name, row.name, url, row.al.picUrl, lrc);
+      let author = this.getArName(row.ar);
+      this.getAudio(author, row.name, url, row.al.picUrl, lrc);
     },
     async usePlayerAll(playList: PlayListDetailTracks[]) {
       for (let i = 0; i < playList.length; i++) {

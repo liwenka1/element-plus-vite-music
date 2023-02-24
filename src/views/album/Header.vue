@@ -10,7 +10,7 @@
         @click="areaClick(item.type)"
       >
         {{ item.name }} </span
-      ><i v-if="i != hotList.length - 1">/</i>
+      ><i v-if="i !== hotList.length - 1">/</i>
     </template>
   </el-card>
 </template>

@@ -8,16 +8,13 @@
     </template>
     <template #default>
       <swiper
+        :navigation="true"
         :slidesPerView="5"
         :spaceBetween="30"
         :loop="true"
         :centeredSlides="true"
         :pagination="{
           dynamicBullets: true,
-        }"
-        :autoplay="{
-          delay: 2500,
-          disableOnInteraction: false,
         }"
         :modules="modules"
         class="banner_wrap"

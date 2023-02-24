@@ -19,9 +19,34 @@
         </div>
       </template>
     </el-table-column>
-    <el-table-column prop="name" label="歌曲" />
-    <el-table-column prop="ar[0].name" label="歌手" />
-    <el-table-column prop="al.name" label="专辑" />
+    <el-table-column label="歌曲">
+      <template #default="scope">
+        <span
+          class="cursor-pointer hover:underline"
+          @click="goDiscoverSong(scope.row.id)"
+          >{{ scope.row.name }}</span
+        >
+      </template>
+    </el-table-column>
+    <el-table-column label="歌手">
+      <template #default="scope">
+        <span
+          class="cursor-pointer hover:underline"
+          v-for="(item, index) in scope.row.ar"
+          @click="goDiscoverAritist(item.id)"
+          >{{ item.name }}<i v-if="index != scope.row.ar.length - 1">/</i></span
+        >
+      </template>
+    </el-table-column>
+    <el-table-column label="专辑">
+      <template #default="scope">
+        <span
+          class="cursor-pointer hover:underline"
+          @click="goDiscoverAlbum(scope.row.al.id)"
+          >{{ scope.row.al.name }}</span
+        >
+      </template>
+    </el-table-column>
     <el-table-column label="时长" width="100">
       <template #default="scope">
         <i
@@ -57,6 +82,7 @@
 <script setup>
 import { useFormatDuring } from "~/utils/number";
 import { usePlayerStore } from "~/store/player";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   data: Object,
@@ -76,6 +102,32 @@ const props = defineProps({
 const playerStore = usePlayerStore();
 const playMusic = (row) => {
   playerStore.usePlayer(row);
+};
+
+const router = useRouter();
+const goDiscoverSong = (id) => {
+  router.push({
+    path: "/discover/song",
+    query: {
+      id: id,
+    },
+  });
+};
+const goDiscoverAritist = (id) => {
+  router.push({
+    path: "/discover/artist",
+    query: {
+      id: id,
+    },
+  });
+};
+const goDiscoverAlbum = (id) => {
+  router.push({
+    path: "/discover/album",
+    query: {
+      id: id,
+    },
+  });
 };
 </script>
 

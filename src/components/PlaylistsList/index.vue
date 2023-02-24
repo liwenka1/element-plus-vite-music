@@ -7,11 +7,13 @@
     <el-image
       :src="item.coverImgUrl"
       style="width: 220px; height: 220px"
-      class="rounded-md"
+      @click="goDiscoverPlaylist(item.id)"
+      class="rounded-md cursor-pointer"
     ></el-image>
     <span
       class="block truncate cursor-pointer w-220px text-lg hover:underline"
       :title="item.name"
+      @click="goDiscoverPlaylist(item.id)"
       >{{ item.name }}</span
     >
     <div class="mt-1">
@@ -37,6 +39,7 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   paginationIf: Boolean,
@@ -50,6 +53,16 @@ const props = defineProps({
   handleSizeChange: Function,
   handleCurrentChange: Function,
 });
+
+const router = useRouter();
+const goDiscoverPlaylist = (id) => {
+  router.push({
+    path: "/discover/playlist",
+    query: {
+      id: id,
+    },
+  });
+};
 </script>
 
 <style lang="less" scoped></style>

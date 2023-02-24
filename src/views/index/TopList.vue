@@ -25,6 +25,7 @@
             <span
               class="truncate cursor-pointer hover:underline"
               :title="scope.row.name"
+              @click="goDiscoverSong(scope.row.id)"
               >{{ scope.row.name }}</span
             >
           </template>
@@ -71,6 +72,14 @@ const router = useRouter();
 const handelChange = (id) => {
   router.push({
     path: "/rank",
+    query: {
+      id: id,
+    },
+  });
+};
+const goDiscoverSong = (id) => {
+  router.push({
+    path: "/discover/song",
     query: {
       id: id,
     },

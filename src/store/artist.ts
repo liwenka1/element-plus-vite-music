@@ -8,13 +8,23 @@ export const useArtistStore = defineStore("artist", {
   state: () => {
     return {
       currentPage: 1,
+      pageSize: 18,
       count: 0,
-      pageData: { type: -1, area: -1, initial: "-1", page: 1, limit: 18 },
       artists: [] as any,
     };
   },
 
-  getters: {},
+  getters: {
+    pageData: (state) => {
+      return {
+        type: -1,
+        area: -1,
+        initial: "-1",
+        page: state.currentPage,
+        limit: state.pageSize,
+      };
+    },
+  },
 
   actions: {
     async getArtistList() {

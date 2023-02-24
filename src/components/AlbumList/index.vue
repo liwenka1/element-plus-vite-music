@@ -26,7 +26,8 @@
           <el-image
             :src="item.picUrl"
             :alt="item.name"
-            class="-translate-x-220% rounded-md mb-10"
+            @click="goDiscoverAlbum(item.id)"
+            class="-translate-x-220% rounded-md mb-10 cursor-pointer"
           >
             <template #placeholder>
               <div class="image-slot">
@@ -61,6 +62,7 @@ import { Autoplay, Navigation, Pagination, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useRouter } from "vue-router";
 // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
 const modules = [Autoplay, Pagination, Navigation, A11y];
 
@@ -76,6 +78,16 @@ const props = defineProps({
   handleSizeChange: Function,
   handleCurrentChange: Function,
 });
+
+const router = useRouter();
+const goDiscoverAlbum = (id) => {
+  router.push({
+    path: "/discover/album",
+    query: {
+      id: id,
+    },
+  });
+}
 </script>
 
 <style lang="less" scoped></style>

@@ -29,6 +29,8 @@ declare module '@vue/runtime-core' {
     ElSkeletonItem: typeof import('element-plus/es')['ElSkeletonItem']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     Header: typeof import('./components/Header/index.vue')['default']
     Indexe: typeof import('./components/Sidebar/indexe.vue')['default']
     Main: typeof import('./components/Main/index.vue')['default']

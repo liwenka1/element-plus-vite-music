@@ -1,5 +1,5 @@
 <template>
-  <el-skeleton :loading="false" animated>
+  <el-skeleton v-if="swiperIf" :loading="false" animated>
     <template #template>
       <el-skeleton-item class="skeleton-img" variant="image" />
       <el-skeleton-item class="skeleton-img" variant="image" />
@@ -39,11 +39,45 @@
       </swiper>
     </template>
   </el-skeleton>
+  <el-skeleton v-if="!swiperIf" :loading="false" animated>
+    <template #template>
+      <el-skeleton-item class="skeleton-img" variant="image" />
+      <el-skeleton-item class="skeleton-img" variant="image" />
+      <el-skeleton-item class="skeleton-img" variant="image" />
+      <el-skeleton-item class="skeleton-img" variant="image" />
+    </template>
+    <template #default>
+      <div
+        class="inline-block mt-5 mr-8 h-280px"
+        v-for="(item, i) in data"
+        :key="i"
+      >
+        <el-image
+          :src="item.picUrl"
+          style="width: 220px; height: 220px"
+          @click="goDiscoverAlbum(item.id)"
+          class="rounded-md cursor-pointer"
+        ></el-image>
+        <span
+          class="block truncate cursor-pointer w-220px text-lg hover:underline"
+          :title="item.name"
+          @click="goDiscoverAlbum(item.id)"
+          >{{ item.name }}</span
+        >
+        <span
+          class="inline-block cursor-pointer hover:underline"
+          @click="goDiscoverAritist(item.artist.id)"
+        >
+          {{ item.artist.name }}
+        </span>
+      </div>
+    </template>
+  </el-skeleton>
   <el-pagination
     v-if="paginationIf"
     :currentPage="currentPage"
     :page-size="pageSize"
-    :page-sizes="[10, 30, 60, 90]"
+    :page-sizes="[18, 30, 60, 90]"
     :small="small"
     :disabled="disabled"
     :background="background"
@@ -67,6 +101,7 @@ import { useRouter } from "vue-router";
 const modules = [Autoplay, Pagination, Navigation, A11y];
 
 const props = defineProps({
+  swiperIf: Boolean,
   paginationIf: Boolean,
   data: Object,
   currentPage: Number,
@@ -87,7 +122,15 @@ const goDiscoverAlbum = (id) => {
       id: id,
     },
   });
-}
+};
+const goDiscoverAritist = (id) => {
+  router.push({
+    path: "/discover/artist",
+    query: {
+      id: id,
+    },
+  });
+};
 </script>
 
 <style lang="less" scoped></style>

@@ -7,7 +7,7 @@
       :small="small"
       :disabled="disabled"
       :background="background"
-      :total="count || 100"
+      :total="count"
       :handleSizeChange="handleSizeChange"
       :handleCurrentChange="handleCurrentChange"
     />

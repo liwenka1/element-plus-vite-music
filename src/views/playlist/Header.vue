@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <span class="text-3xl font-semibold">{{ cat }}</span>
+    <span class="text-4xl font-semibold">{{ cat }}</span>
     <el-popover placement="bottom-start" :width="1400" trigger="click">
       <template #reference>
         <el-button class="ml-5 mb-3"

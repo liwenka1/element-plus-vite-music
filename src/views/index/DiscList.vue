@@ -9,7 +9,7 @@
       </h3>
     </el-row>
     <el-row>
-      <AlbumList :paginationIf="false" :data="topAlbumList" />
+      <AlbumList :swiperIf="true" :paginationIf="false" :data="topAlbumList" />
     </el-row>
   </el-card>
 </template>

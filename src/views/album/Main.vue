@@ -1,41 +1,37 @@
 <template>
   <el-card>
     <AlbumList
-      v-if="cloudsearctList"
-      :swiperIf="false"
       :paginationIf="true"
-      :data="cloudsearctList"
+      :data="albumNewList"
       :currentPage="currentPage"
       :pageSize="pageSize"
       :small="small"
       :disabled="disabled"
       :background="background"
-      :total="cloudsearctResult.albumCount || 0"
+      :total="total"
       :handleSizeChange="handleSizeChange"
       :handleCurrentChange="handleCurrentChange"
     />
-    <NoList v-if="!cloudsearctList" />
   </el-card>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { useAlbumStore } from "~/store/album";
 import { storeToRefs } from "pinia";
-import { useSerchStore } from "~/store/serch";
 
-const store = useSerchStore();
-const { currentPage, pageSize, cloudsearctResult, cloudsearctList } =
-  storeToRefs(store);
+const store = useAlbumStore();
+const { currentPage, pageSize, total, albumNewList } = storeToRefs(store);
 const small = ref(false);
 const background = ref(false);
 const disabled = ref(false);
-const handleSizeChange = (val) => {
+const handleSizeChange = async (val) => {
   store.pageSize = val;
-  store.getCloudsearch();
+  store.getAlbumNew();
 };
-const handleCurrentChange = (val) => {
+const handleCurrentChange = async (val) => {
   store.currentPage = val;
-  store.getCloudsearch();
+  store.getAlbumNew();
 };
 </script>
 

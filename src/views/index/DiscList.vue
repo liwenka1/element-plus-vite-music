@@ -15,15 +15,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
+import { useIndexStore } from "~/store/index";
+import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
-import { useAlbumNewest } from "~/api/api";
 
-let topAlbumList = ref([]);
+const store = useIndexStore();
+const { topAlbumList } = storeToRefs(store);
 onMounted(async () => {
-  const res = await useAlbumNewest();
-  topAlbumList.value = res.albums;
-  console.log(topAlbumList.value);
+  store.getAlbumNewest();
 });
 const router = useRouter();
 const goAlbum = () => {

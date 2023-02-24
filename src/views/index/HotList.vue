@@ -25,8 +25,9 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useIndexStore } from "~/store/index";
+import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
-import { useTopPlaylistHighquality } from "~/api/api";
 
 const hotList = ref([
   { id: 1, name: "华语" },
@@ -35,15 +36,15 @@ const hotList = ref([
   { id: 4, name: "民谣" },
   { id: 5, name: "电子" },
 ]);
-let personalizedList = ref([]);
+const store = useIndexStore();
+const { personalizedList } = storeToRefs(store);
 onMounted(async () => {
-  const res = await useTopPlaylistHighquality({ limit: 6 });
-  personalizedList.value = res.playlists;
+  store.getTopPlaylistHighquality();
 });
 
 const buttonClick = async (cat) => {
-  const res = await useTopPlaylistHighquality({ limit: 6, cat: cat });
-  personalizedList.value = res.playlists;
+  store.cat = cat;
+  store.getTopPlaylistHighquality();
 };
 
 const router = useRouter();

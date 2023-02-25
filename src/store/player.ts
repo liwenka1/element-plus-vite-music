@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { uselyric } from "~/api/api";
-import type { Song } from "~/models/song";
+import { uselyric, useDetail } from "~/api/api";
+import type { Song, SongAl, SongAr } from "~/models/song";
 import type { PlayListDetailTracks } from "~/models/playlist";
 
 //1.定义容器
@@ -13,6 +13,12 @@ export const usePlayerStore = defineStore("player", {
     return {
       audio: {},
       audioList: [] as any,
+      id: 0,
+      songs: {} as Song,
+      al: {} as SongAl,
+      ar: [] as SongAr[],
+      alia: [] as string[],
+      lyric: "",
     };
   },
 
@@ -61,6 +67,31 @@ export const usePlayerStore = defineStore("player", {
       for (let i = 0; i < playList.length; i++) {
         await this.usePlayer(playList[i]);
       }
+    },
+    async getDetail() {
+      const res = await useDetail(this.id);
+      this.songs = res;
+      this.al = res.al;
+      this.ar = res.ar;
+      this.alia = res.alia;
+    },
+    async getDetaillyric() {
+      const res = await this.getlyric(this.id);
+      this.lyric = this.formartLyric(res);
+    },
+    formartLyric(lyric: string) {
+      const lrcReg = /^\[(\d{2}):(\d{2}.\d{2,})\]\s*(.+)$/;
+      const lyricLis = lyric.split("\n");
+      let res = [] as any;
+      lyricLis.forEach((item) => {
+        const arr = lrcReg.exec(item);
+
+        if (!arr) {
+          return;
+        }
+        res.push({ txt: arr[3] });
+      });
+      return res;
     },
   },
 });

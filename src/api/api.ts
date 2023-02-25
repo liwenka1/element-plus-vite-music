@@ -98,7 +98,7 @@ export async function useDetail(id: number) {
   const { songs } = await http.get<{ songs: Song[] }>("/song/detail", {
     ids: id,
   });
-  return songs.first();
+  return songs[0];
 }
 
 export async function useBanner() {

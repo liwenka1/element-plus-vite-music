@@ -1,34 +1,28 @@
 <template>
   <div
-    class="inline-block mt-5 mr-8 h-280px"
-    v-for="(item, i) in data"
-    :key="i"
+    v-infinite-scroll="load"
+    :infinite-scroll-disabled="busy"
+    infinite-scroll-immediate="false"
   >
-    <el-image
-      :src="item.picUrl"
-      style="width: 220px; height: 220px"
-      @click="goDiscoverAritist(item.id)"
-      class="rounded-md cursor-pointer"
-    ></el-image>
-    <span
-      class="block truncate cursor-pointer w-220px text-lg hover:underline"
-      :title="item.name"
-      @click="goDiscoverAritist(item.id)"
-      >{{ item.name }}</span
+    <div
+      class="inline-block mt-5 mr-8 h-280px"
+      v-for="(item, i) in data"
+      :key="i"
     >
+      <el-image
+        :src="item.img1v1Url"
+        style="width: 90%; height: 70%"
+        @click="goDiscoverAritist(item.id)"
+        class="rounded-md cursor-pointer"
+      ></el-image>
+      <span
+        class="block truncate cursor-pointer w-220px text-lg hover:underline"
+        :title="item.name"
+        @click="goDiscoverAritist(item.id)"
+        >{{ item.name }}</span
+      >
+    </div>
   </div>
-  <el-pagination
-    :currentPage="currentPage"
-    :page-size="pageSize"
-    :page-sizes="[18, 30, 60, 90]"
-    :small="small"
-    :disabled="disabled"
-    :background="background"
-    layout="total,sizes, prev, pager, next"
-    :total="total"
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
-  />
 </template>
 
 <script setup>
@@ -36,14 +30,8 @@ import { useRouter } from "vue-router";
 
 const props = defineProps({
   data: Object,
-  currentPage: Number,
-  pageSize: Number,
-  small: Boolean,
-  disabled: Boolean,
-  background: Boolean,
-  total: Number,
-  handleSizeChange: Function,
-  handleCurrentChange: Function,
+  busy: Boolean,
+  load: Function,
 });
 
 const router = useRouter();

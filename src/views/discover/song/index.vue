@@ -1,6 +1,6 @@
 <template>
   <div class="flex mt-10">
-    <el-card class="w-35% h-70">
+    <el-card class="w-30% h-220">
       <span class="text-3xl font-black">{{ songs.name }}</span>
       <p>
         <span class="text-xl text-black text-opacity-50">{{ alia[0] }}</span>
@@ -29,7 +29,7 @@
         >
       </p>
     </el-card>
-    <el-card class="w-45% h-140 text-center overflow-y-auto overscroll-none">
+    <el-card class="w-50% h-220 text-center overflow-y-auto overscroll-none">
       <p class="text-3xl font-black">歌词</p>
       <p v-for="item in lyric">{{ item.txt }}</p>
     </el-card>
@@ -52,18 +52,18 @@ import { useRouter } from "vue-router";
 import { usePlayerStore } from "~/store/player";
 import { storeToRefs } from "pinia";
 
-const store = usePlayerStore();
-const { songs, al, ar, alia, lyric } = storeToRefs(store);
+const playerStore = usePlayerStore();
+const { songs, al, ar, alia, lyric } = storeToRefs(playerStore);
 const router = useRouter();
 onMounted(async () => {
   let query = router.currentRoute.value.query;
-  store.id = query.id;
-  store.getDetail();
-  store.getDetaillyric();
+  playerStore.id = query.id;
+  playerStore.getDetail();
+  playerStore.getDetaillyric();
 });
 
 const playMusic = (row) => {
-  store.usePlayer(row);
+  playerStore.usePlayer(row);
 };
 
 const goDiscoverAritist = (id) => {

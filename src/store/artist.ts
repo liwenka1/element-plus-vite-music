@@ -7,29 +7,31 @@ import { useArtistList } from "~/api/api";
 export const useArtistStore = defineStore("artist", {
   state: () => {
     return {
-      currentPage: 1,
-      pageSize: 18,
       count: 0,
       artists: [] as any,
-    };
-  },
-
-  getters: {
-    pageData: (state) => {
-      return {
+      busy: false,
+      pageData: {
         type: -1,
         area: -1,
         initial: "-1",
-        page: state.currentPage,
-        limit: state.pageSize,
-      };
-    },
+        page: 1,
+        limit: 24,
+      },
+    };
   },
+
+  getters: {},
 
   actions: {
     async getArtistList() {
       let res = await useArtistList(this.pageData);
-      this.artists = res;
+      this.artists = res.artists;
+    },
+    async getPushArtistList() {
+      this.busy = true;
+      let res = await useArtistList(this.pageData);
+      this.artists.push(...res.artists);
+      this.busy = !res.more;
     },
   },
 });

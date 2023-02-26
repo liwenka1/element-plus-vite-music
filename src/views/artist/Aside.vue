@@ -6,8 +6,8 @@
         <el-button
           :class="{
             'active-rank':
-              (store.pageData.type === cat.type && i === '0') ||
-              (store.pageData.area === cat.type && i === '1'),
+              (pageData.type === cat.type && i === '0') ||
+              (pageData.area === cat.type && i === '1'),
           }"
           link
           class="ml-5"
@@ -20,10 +20,12 @@
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
 import { useArtistStore } from "~/store/artist";
 
 const store = useArtistStore();
+const { pageData } = storeToRefs(store);
 onMounted(() => {
   store.getArtistList();
 });
@@ -47,9 +49,11 @@ const catList = ref([
 const catClick = (cat, i) => {
   console.log(cat, i);
   if (i == 0) {
+    store.pageData.page = 1;
     store.pageData.type = cat.type;
     store.getArtistList();
   } else if (i == 1) {
+    store.pageData.page = 1;
     store.pageData.area = cat.type;
     store.getArtistList();
   }

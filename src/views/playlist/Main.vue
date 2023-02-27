@@ -1,16 +1,17 @@
 <template>
   <el-card>
     <PlaylistsList
-    :data="playList.playlists"
-    :currentPage="currentPage"
-    :pageSize="pageSize"
-    :small="small"
-    :disabled="disabled"
-    :background="background"
-    :total="playList.total || 100"
-    :handleSizeChange="handleSizeChange"
-    :handleCurrentChange="handleCurrentChange"
-  />
+      :paginationIf="true"
+      :data="playList.playlists"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :small="small"
+      :disabled="disabled"
+      :background="background"
+      :total="playList.total || 100"
+      :handleSizeChange="handleSizeChange"
+      :handleCurrentChange="handleCurrentChange"
+    />
   </el-card>
 </template>
 

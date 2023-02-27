@@ -1,6 +1,7 @@
 <template>
   <el-card>
     <SongsList
+      :paginationIf="true"
       :data="songs"
       :currentPage="currentPage"
       :pageSize="pageSize"

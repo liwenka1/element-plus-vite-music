@@ -2,6 +2,7 @@
   <el-card>
     <SongsList
       v-if="cloudsearctList"
+      :paginationIf="true"
       :data="cloudsearctList"
       :currentPage="currentPage"
       :pageSize="pageSize"

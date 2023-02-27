@@ -14,10 +14,11 @@
           @click="catClick('全部')"
           >全部风格</el-button
         >
-        <ul v-for="(item, i) in topCat" :key="i" class="flex my-2">
+        <ul v-for="(item, i) in categories" :key="i" class="flex my-2">
           <span class="text-xl font-semibold">{{ item }}</span>
-          <li v-for="cat in playListCat[i]">
+          <li v-for="cat in sub">
             <el-button
+              v-if="cat.category == i"
               link
               :class="{
                 'active-rank': cat.name === store.cat,
@@ -35,39 +36,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { usePlayListCatList, useTopPlaylist } from "~/api/api";
+import { onMounted } from "vue";
 import { usePlayListStore } from "~/store/playList";
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 
 const store = usePlayListStore();
-const { cat } = storeToRefs(store);
-let topCat = ref({});
-let playListCat = ref([]);
+const { cat, categories, sub } = storeToRefs(store);
 onMounted(async () => {
-  const res = await usePlayListCatList();
-  topCat.value = res.categories;
-  for (let index = 0; index < 5; index++) {
-    let arr = [];
-    res.sub.forEach((item) => {
-      if (item.category == index) {
-        arr.push(item);
-      }
-    });
-    playListCat.value.push(arr);
-    arr = [];
-  }
-  const playList = await useTopPlaylist({ limit: 18, offset: 0, cat: "全部" });
-  store.playList = playList;
+  let query = router.currentRoute.value.query;
+  store.cat = query.cat || "全部";
+  store.getTopPlaylist();
+  store.getPlayListCatList();
 });
+
+const router = useRouter();
 const catClick = async (cat) => {
-  const playList = await useTopPlaylist({
-    limit: store.limit,
-    offset: store.offset,
-    cat: cat,
-  });
   store.cat = cat;
-  store.playList = playList;
+  store.getTopPlaylist();
+  router.push({
+    path: "/playlist",
+    query: {
+      cat: cat,
+    },
+  });
 };
 </script>
 

@@ -28,6 +28,7 @@
         <span
           class="text-black text-opacity-50 mx-2 cursor-pointer hover:underline"
           v-for="item in rank.tags"
+          @click="goPlaylist(item)"
           >{{ item }}</span
         >
       </p>
@@ -40,6 +41,7 @@
     </el-card>
     <el-card class="w-50%">
       <SongsList
+        :paginationIf="true"
         :data="songs"
         :currentPage="currentPage"
         :pageSize="pageSize"
@@ -118,6 +120,14 @@ const playerStore = usePlayerStore();
 const router = useRouter();
 const playMusicAll = (row) => {
   playerStore.usePlayerAll(row);
+};
+const goPlaylist = async (cat) => {
+  router.push({
+    path: "/playlist",
+    query: {
+      cat: cat,
+    },
+  });
 };
 </script>
 

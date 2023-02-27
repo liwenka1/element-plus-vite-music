@@ -66,6 +66,7 @@
     </el-table-column>
   </el-table>
   <el-pagination
+    v-if="paginationIf"
     :currentPage="currentPage"
     :page-size="pageSize"
     :page-sizes="[10, 20, 50, 100]"
@@ -85,6 +86,7 @@ import { usePlayerStore } from "~/store/player";
 import { useRouter } from "vue-router";
 
 const props = defineProps({
+  paginationIf: Boolean,
   data: Object,
   currentPage: Number,
   pageSize: Number,

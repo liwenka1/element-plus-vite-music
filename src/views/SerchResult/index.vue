@@ -28,11 +28,11 @@
 <script setup>
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
-import songs from "./songs.vue";
-import albums from "./albums.vue";
-import artists from "./artists.vue";
-import playlists from "./playlists.vue";
-import mv from "./mv.vue";
+import songs from "./Songs.vue";
+import albums from "./Albums.vue";
+import artists from "./Artists.vue";
+import playlists from "./Playlists.vue";
+import mv from "./Mv.vue";
 
 import { useSerchStore } from "~/store/serch";
 import { storeToRefs } from "pinia";

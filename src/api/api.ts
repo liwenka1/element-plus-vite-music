@@ -208,8 +208,8 @@ export async function useArtistSongs(
 
 export async function useArtistAlbum(
   id: number,
-  limit: number = 10,
-  offset: number = 0
+  limit: number,
+  offset: number
 ) {
   return await http.get<{ hotAlbums: Album[] }>("artist/album", {
     id: id,
@@ -452,4 +452,12 @@ export async function uselyric(id: number) {
     code: number;
     lrc: { lyric: string };
   }>("lyric", { id: id });
+}
+
+export async function useartists(id: number) {
+  return await http.get<{
+    code: number;
+    artist: Artist;
+    hotSongs: Song[];
+  }>("artists", { id: id });
 }

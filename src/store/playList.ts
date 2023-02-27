@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useTopPlaylist } from "~/api/api";
+import { usePlayListCatList, useTopPlaylist } from "~/api/api";
 //1.定义容器
 //2.使用容器的state
 //3.修改state
@@ -11,6 +11,8 @@ export const usePlayListStore = defineStore("playList", {
       pageSize: 18,
       cat: "全部",
       playList: [] as any,
+      categories: [] as any,
+      sub: [] as any,
     };
   },
 
@@ -30,6 +32,11 @@ export const usePlayListStore = defineStore("playList", {
         offset: this.offset,
         cat: this.cat,
       });
+    },
+    async getPlayListCatList() {
+      const res = await usePlayListCatList();
+      this.categories = res.categories;
+      this.sub = res.sub;
     },
   },
 });

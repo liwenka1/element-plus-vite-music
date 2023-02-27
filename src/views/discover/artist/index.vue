@@ -21,7 +21,14 @@
         </el-tab-pane>
       </el-tabs>
     </el-card>
-    <el-card class="w-35%">
+    <el-card class="w-35% h-30%">
+      <span class="text-3xl font-black">{{ artist.name }}</span>
+      <span
+        class="text-xl text-black text-opacity-50 inline-block translate-x-3"
+        v-for="item in artist.alias"
+        >{{ item
+        }}<i v-if="item != artist.alias[artist.alias.length - 1]">;</i></span
+      >
       <el-image
         class="rounded-md"
         style="width: 100%; height: 100%"

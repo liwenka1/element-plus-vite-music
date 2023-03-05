@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
-import { useAlbumNew } from "~/api/api";
+import { useAlbumNew, useAlbum } from "~/api/api";
 import type { Album } from "~/models/album";
+import { Artist } from "~/models/artist";
+import { Song } from "~/models/song";
 //1.定义容器
 //2.使用容器的state
 //3.修改state
@@ -13,6 +15,10 @@ export const useAlbumStore = defineStore("album", {
       area: "",
       albumNewList: [] as Album[],
       total: 0,
+      albumId: 0,
+      album: {} as Album,
+      songs: [] as Song[],
+      artists: [] as Artist[],
     };
   },
 
@@ -34,6 +40,12 @@ export const useAlbumStore = defineStore("album", {
       });
       this.albumNewList = res.albums;
       this.total = res.total;
+    },
+    async getAlbum() {
+      const res = await useAlbum(this.albumId);
+      this.album = res.album;
+      this.songs = res.songs;
+      this.artists = res.album.artists;
     },
   },
 });

@@ -22,7 +22,8 @@
     <el-table-column label="歌曲">
       <template #default="scope">
         <span
-          class="cursor-pointer hover:underline"
+          class="cursor-pointer hover:underline truncate"
+          :title="scope.row.name"
           @click="goDiscoverSong(scope.row.id)"
           >{{ scope.row.name }}</span
         >
@@ -31,7 +32,8 @@
     <el-table-column label="歌手">
       <template #default="scope">
         <span
-          class="cursor-pointer hover:underline"
+          class="cursor-pointer hover:underline truncate"
+          :title="item.name"
           v-for="(item, index) in scope.row.ar"
           @click="goDiscoverAritist(item.id)"
           >{{ item.name }}<i v-if="index != scope.row.ar.length - 1">/</i></span
@@ -41,7 +43,8 @@
     <el-table-column label="专辑">
       <template #default="scope">
         <span
-          class="cursor-pointer hover:underline"
+          class="cursor-pointer hover:underline truncate"
+          :title="scope.row.al.name"
           @click="goDiscoverAlbum(scope.row.al.id)"
           >{{ scope.row.al.name }}</span
         >

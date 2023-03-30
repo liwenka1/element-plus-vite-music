@@ -21,8 +21,7 @@ import '../src/assets/fonts/fonts.css'
 
 import router from './router/index'
 import { createPinia } from 'pinia'
-
-import * as getApi from '~/api/api'
+import './rem.ts'
 import '~/assets/tailwind/index.css'
 
 // 1.创建实例

@@ -6,7 +6,7 @@
   >
     <el-image
       :src="item.coverImgUrl"
-      style="width: 220px; height: 220px"
+      style="width: 90%; height: 70%"
       @click="goDiscoverPlaylist(item.id)"
       class="rounded-md cursor-pointer"
     ></el-image>

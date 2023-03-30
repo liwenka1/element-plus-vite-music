@@ -51,7 +51,7 @@
       >
         <el-image
           :src="item.picUrl"
-          style="width: 220px; height: 220px"
+          style="width:180px; height: 180px"
           @click="goDiscoverAlbum(item.id)"
           class="rounded-md cursor-pointer"
         ></el-image>

@@ -2,7 +2,7 @@
   <div class="inline-block my-5" v-for="(item, i) in data" :key="i">
     <el-image
       :src="item.cover"
-      style="width: 300px; height: 167px"
+      style="width: 20rem; height:12rem"
       class="mr-8 rounded-md"
     ></el-image>
     <span
